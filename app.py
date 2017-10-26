@@ -47,7 +47,7 @@ def index():
 
 #This is the function that should get infor from the back-end
 def get_data():
-    with open(data_path + 'boroughs.geojson') as data_file:
+    with open(data_path + 'datathon.geojson') as data_file:
         json_data = json.load(data_file)
     return jsonify(json_data)
 
