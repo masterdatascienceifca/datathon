@@ -6,7 +6,7 @@ var cupcakeTiles = L.tileLayer('http://a.tiles.mapbox.com/v3/lyzidiamond.map-iet
     maxZoom: 18
 });
 
-  $.getJSON("http://0.0.0.0:5000/data", function(data) {
+  $.getJSON("/data", function(data) {
     var geojson = L.geoJson(data, {
       onEachFeature: function (feature, layer) {
         layer.bindPopup(feature.properties.name);
