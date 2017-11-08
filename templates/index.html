@@ -1,12 +1,27 @@
-<!doctype html>
-<html>
+<html lang="en">
+
 <head>
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-  <!--[if lte IE 8]>
-     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.ie.css" />
-  <![endif]-->
-  <style type="text/css">
-    body {
+	<meta charset="utf-8">
+	<title>Find Open Wifi nearby!</title>
+	<meta name="description" content="WiFiHere app helps you find free open WiFi hotspots near you, allowing you to stay connected when you need it the most."
+	/>
+          <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+  <link rel="stylesheet" href="./static/css/custom.css">
+  </style>
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="canonical" href="ttps://ctrlq.org/maps/where/"> <!-- CHECK-->
+	<link href="https://ctrlq.org/assets/v/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://ctrlq.org/assets/v/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://ctrlq.org/assets/v/css/theme-nearblack.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,400,300,500,600,700%7COpen+Sans:400,500,600" rel="stylesheet"
+		type="text/css">
+        
+        
+	<style>
+		body {
       padding: 0;
       margin: 0;
     }
@@ -14,16 +29,298 @@
     html, body, #osm-map {
       height: 100%;
     }
-  <link rel="stylesheet" href="./static/css/custom.css">
-  </style>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+
+		.tools a {
+			color: white;
+		}
+		
+		.googlecontainer {
+			height: 100vh;
+			max-height: 640px;
+			xwidth: 95%;
+			margin: auto;
+		}
+		
+		#pac-input {
+			width: 300px;
+			height: 40px;
+			padding-left: 10px;
+		}
+		
+		#googlemaps {
+			height: 100%;
+		}
+		
+		@media all and (max-width: 767px) {
+			br {
+				display: block;
+			}
+		}
+	</style>
+	 
+	
 </head>
+
 <body>
-  <div id=buttons>
-  Votar, bla bla</div>
-  <div id="osm-map"></div>
-  <script src='./static/js/map.js' type='text/javascript'></script>
+
+	<div class="nav-container">
+		<nav>
+			<div class="nav-bar">
+				<div class="module left">
+					<a href="https://masterdatascience.ifca.es/index_en.html">
+						<img class="logo logo-dark" alt="WiFiHere, IFCA, UC, UIMP, EC" src="https://masterdatascience.ifca.es/images/logo.png">
+					</a>
+				</div>
+					</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</div>
+    
+    
+	<div class="main-container">    
+    <section class="image-bg bg-dark xoverlay pt120 pb120">
+			<div class="background-image-holder" style="opacity:.6;background-image:url(https://source.unsplash.com/category/buildings/800x600">
+			</div>
+            <!--Welcome Screen FREE WIFI NERBY-->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+						<h2 class="uppercase mb8">Free Wifi Nearby</h2>
+						<p class="lead mb40">Find the nearest open hotspot and enjoy!</p>
+					</div>
+                    
+					<div class="col-sm-12 text-center">
+
+                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Scan for Open WiFi!</a></p>
+                    <p id="demo"></p>	                        
+                    <!--<a href="#about" class="w3-bar-item w3-button">ABOUT</a> -->                    
+                   <!-- <div class="w3-container" style="padding:128px 16px" id="about">-->
+                   
+                   
+                	
+   <!--MAP Section-->      
+       
+            
+		</section>
+		<section class="bg-secondary pb0 pt0" id="maps">
+			<div class="row mb-xs-24 googlecontainer">
+				<div id="osm-map">
+  <script type='text/javascript'>
+  </script>
+				</div>
+		
+		</section>
+     
+  <!--Request Free WiFi Here Section-->      
+        
+		<section class="bg-secondary">
+			<div class="container">
+				<div class="row mb32 mb-xs-24">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+						<h2>Request Free WifiHere!</h2>
+					</div>
+				</div>                
+				<div class="row mb32 mb-xs-24">
+					<div class="col-sm-10 col-sm-offset-1">
+						<p class="lead">You didn't find any Open Wifi hotspot nearby?  <a>Vote for this place to get free Wifi connectivity</a> (available only for public spaces). Help our governments to better plan the next upgrades to the network and become part of the FreeWiFi4EU movement...</p>
+						<p class="lead">This information is used to build an Open Database that the local authorities can access to determine the optimal places to install new open Wifi hotspots. This is part of the <a href="http://www.europarl.europa.eu/news/en/press-room/20170908IPR83454/wifi4eu-new-eu-scheme-for-free-internet-access">WiFi4EU Initiative</a>, in accordancet to the <a> Digital Single Market </a>Strategy of the European Commission. </p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+<!--Development Team Section-->
+
+		<section class="bg-dark tools">
+			<div class="container">
+				<div class="row mb64 mb-xs-24">
+					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center" id="team">
+						<h3>Development Team</h3>				
+				<div class="row">
+					<div class="col-md-5 col-md-offset-1 col-sm-6 mb40 mb-xs-24">
+						<i class="icon inline-block mb16 fade-3-4 ti ti-map"></i>
+                        
+						<h4><a href="https://masterdatascience.ifca.es/index_en.html">Master in Data Science</a></h4>
+						<p>UIMP / Universidad de Cantabria / CSIC - Spain </p>  
+                             The students and professors joined efforts to offer a tool to promote democratic change through citizen participation in decisions about local digital strategies. The App makes use of the <a href="https://ec.europa.eu/jrc/en/scientific-tool/netbravo-measuring-internet-signal-map-connection-quality-across-eu"> netBravo</a> open database of the JCR (Joint Research Centre) to determine the closest open WiFi networks. </p>
+					
+                    
+                    
+                    
+<!-- PAGE BOTTOM-->
+					
+		</section>
+           <!--THE THREE LINKS ON THE BOTTOM-->
+           
+           <section class="page-title page-title-4 bg-secondary" >
+			<div class="container" >
+				<div class="row mb32 mb-xs-24">
+					<div class="col-md-6">
+						<h3 class="uppercase mb0">WiFiHere</h3 >
+					</div>
+                    
+					<div class="col-md-6 text-right">
+                    <!--THE THREE LINKS ON THE BOTTOM-->
+						<ol class="breadcrumb breadcrumb-2">
+							<li>
+								<a href="https://masterdatascience.ifca.es/index_en.html" target="">The Developer</a>
+							</li>
+							<li>
+								<a href="https://twitter.com/MsC_DataScience" target="_blank">Twitter</a>
+							</li>
+							<li>
+                            <a href="mailto:info-masterdatascience@listas.csic.es?Subject=WiFiHere - Info">Email Us</a>
+								
+							</li>
+						</ol>
+					</div>
+		</section>
+	</div>
+
+
+
+	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyABQ8h9v6a5SaqoEo7VbzTZaWtvo5J0Hi8"></script>
+	<script>
+        var mapToShow = document.getElementById("osm-map");
+	var map = L.map('osm-map'); 
+        var osmLayer = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18
+});
+
+  $.getJSON("/data/", function(data) {
+    var geojson = L.geoJson(data, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+    map.fitBounds(geojson.getBounds());
+    osmLayer.addTo(map);
+    geojson.addTo(map);
+  });
+	function getLocation() {
+    		if (navigator.geolocation) {
+        		navigator.geolocation.getCurrentPosition(showPosition);
+    		} else { 
+        	mapToShow.innerHTML = "Geolocation is not supported by this browser.";
+    		}
+	}
+	function showPosition(position) {
+        map.eachLayer(function (layer) {
+    map.removeLayer(layer)
+});
+	var res = "/data2/?lat=" + position.coords.latitude + "&long=" + position.coords.longitude;     
+        $.getJSON(res, function(data) {
+    var geojson = L.geoJson(data, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.name);
+      }
+    });
+    map.fitBounds(geojson.getBounds());
+    osmLayer.addTo(map);
+    geojson.addTo(map);
+    map.redrawAll();
+  });
+        }
+        function scrollToMap() {
+            document.body.scrollTop = document.getElementById("maps").offsetTop;
+        }
+
+        function geocode(position) {
+            geocoder.geocode({
+                latLng: position
+            }, 
+            function(responses) {
+                var pos = marker.getPosition();
+                window.location.hash = '#' + pos.lat() + "," + pos.lng();
+                if (responses && responses.length > 0) {
+                    THEMAP(responses[0].formatted_address);
+                } else {
+                    window.alert('Sorry but Google Maps could not determine the approximate postal address of this location.');
+                }
+            });
+        }
+
+
+
+        function ctrlq()  {
+
+            var myOptions = {
+                zoom: 17,
+                fullscreenControl: false,
+                scrollwheel: false,
+                panControl: true,
+                zoomControl: true,
+                zoomControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                scaleControl: false,
+                scaleControlOptions: {
+                    xposition: google.maps.ControlPosition.RIGHT_TOP
+                },
+                streetViewControl: true,
+                streetViewControlOptions: {
+                    position: google.maps.ControlPosition.RIGHT_TOP
+                },
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+				mapTypeControlOptions: {
+                    position: google.maps.ControlPosition.LEFT_TOP
+                }
+            };
+
+            map = new google.maps.Map(document.getElementById('googlemaps'), myOptions);
+
+           
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(locationFound, defaultLocation);
+            } else {
+                defaultLocation();
+            }
+        }
+
+        function locationFound(position) {
+            showMap(position.coords.latitude, position.coords.longitude, true);
+        }
+
+        function defaultLocation() {
+            showMap(38.8977, -77.0366, false);
+        }
+
+        function showMap(lat, lng, hideinfo) {
+
+            latLng = new google.maps.LatLng(lat, lng);
+
+            map.setCenter(latLng);
+
+            marker = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                draggable: false,
+                animation: google.maps.Animation.DROP
+            });
+
+<!--COORDS BALOON-->
+
+            var balloon = '<div id="iw" style="max-width:260px;font-size:1.05em; color:#333"><b>Your current location:</b><br/> &nbsp; Latitude: ' + marker.getPosition().lat() + '<br/> &nbsp; Longitude: ' + marker.getPosition().lng();
+            
+            <!--VOTE BUTTON--> 
+           <!-- balloon += '<br><br><a style="margin-bottom:5px; padding: 0 10px" class="btn btn-sm" target="_blank" href="' + url + '" target="_blank"><i class="ti ti-location-pin"></i> Vote</a>';--!>
+            <!--TWITTER BUTTON-->
+            balloon += '<a target="_blank" style="margin-bottom:5px;padding: 0 10px" class="btn btn-sm" href="https://twitter.com/intent/tweet?related=MsC_DataScience&via=MsC_DataScience&url=' + '&text=%20Download%20%23WiFiHere%20App%20and%20find%20OPEN%20WiFi%20networks%20Nearby!"><i class="ti ti-twitter"></i>Tweet</a>';
+            
+    THEMAP = new google.maps.InfoWindow({ content:balloon   });
+		THEMAP.open(map,marker);
+
+        }
+        
+        
+        <!--ctrlq();-->
+        
+    </script>   
+
+
 </body>
 </html>
-
