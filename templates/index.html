@@ -2,20 +2,20 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Find Open Wifi nearby!</title>
+	<title>Find Open nearby WiFi!</title>
 	<meta name="description" content="WiFiHere app helps you find free open WiFi hotspots near you, allowing you to stay connected when you need it the most."
 	/>
-          <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-  <link rel="stylesheet" href="./static/css/custom.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+
   </style>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
-  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="canonical" href="ttps://ctrlq.org/maps/where/"> <!-- CHECK-->
-	<link href="https://ctrlq.org/assets/v/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="https://ctrlq.org/assets/v/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="https://ctrlq.org/assets/v/css/theme-nearblack.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="./static/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/static/css/theme-nearblack.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="https://fonts.googleapis.com/css?family=Raleway:100,400,300,500,600,700%7COpen+Sans:400,500,600" rel="stylesheet"
 		type="text/css">
         
@@ -82,19 +82,21 @@
     
 	<div class="main-container">    
     <section class="image-bg bg-dark xoverlay pt120 pb120">
-			<div class="background-image-holder" style="opacity:.6;background-image:url(https://source.unsplash.com/category/buildings/800x600">
+			<div class="background-image-holder" style="opacity:.6;background-image:url(https://source.unsplash.com/category/technology/800x600">
 			</div>
             <!--Welcome Screen FREE WIFI NERBY-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h2 class="uppercase mb8">Free Wifi Nearby</h2>
+						<h2 class="uppercase mb8">Free Nearby WiFi</h2>
 						<p class="lead mb40">Find the nearest open hotspot and enjoy!</p>
 					</div>
                     
 					<div class="col-sm-12 text-center">
 
-                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Scan for Open WiFi!</a></p>
+                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Scan to find Open WiFi!</a></p>
+                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Vote your location to get a new HotSpot</a></p>
+                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Show votes</a></p>
                     <p id="demo"></p>	                        
                     <!--<a href="#about" class="w3-bar-item w3-button">ABOUT</a> -->                    
                    <!-- <div class="w3-container" style="padding:128px 16px" id="about">-->
@@ -187,14 +189,14 @@
 	<script>
         var mapToShow = document.getElementById("osm-map");
 	var map = L.map('osm-map'); 
-        var osmLayer = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 18
+        //https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
+        var osmLayer = L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 });
 
   $.getJSON("/data/", function(data) {
     var geojson = L.geoJson(data, {
       onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.name);
+        layer.bindPopup(feature.properties.popupContent);
       }
     });
     map.fitBounds(geojson.getBounds());
@@ -212,113 +214,20 @@
         map.eachLayer(function (layer) {
     map.removeLayer(layer)
 });
-	var res = "/data2/?lat=" + position.coords.latitude + "&long=" + position.coords.longitude;     
+	var res = "/nearest/?lat=" + position.coords.latitude + "&long=" + position.coords.longitude;     
         $.getJSON(res, function(data) {
     var geojson = L.geoJson(data, {
       onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.name);
+        layer.bindPopup(feature.properties.popupContent);
       }
     });
     map.fitBounds(geojson.getBounds());
     osmLayer.addTo(map);
     geojson.addTo(map);
-    map.redrawAll();
+    map.setView(new L.LatLng(position.coords.latitude, position.coords.longitude),14);
   });
         }
-        function scrollToMap() {
-            document.body.scrollTop = document.getElementById("maps").offsetTop;
-        }
 
-        function geocode(position) {
-            geocoder.geocode({
-                latLng: position
-            }, 
-            function(responses) {
-                var pos = marker.getPosition();
-                window.location.hash = '#' + pos.lat() + "," + pos.lng();
-                if (responses && responses.length > 0) {
-                    THEMAP(responses[0].formatted_address);
-                } else {
-                    window.alert('Sorry but Google Maps could not determine the approximate postal address of this location.');
-                }
-            });
-        }
-
-
-
-        function ctrlq()  {
-
-            var myOptions = {
-                zoom: 17,
-                fullscreenControl: false,
-                scrollwheel: false,
-                panControl: true,
-                zoomControl: true,
-                zoomControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                },
-                scaleControl: false,
-                scaleControlOptions: {
-                    xposition: google.maps.ControlPosition.RIGHT_TOP
-                },
-                streetViewControl: true,
-                streetViewControlOptions: {
-                    position: google.maps.ControlPosition.RIGHT_TOP
-                },
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-				mapTypeControlOptions: {
-                    position: google.maps.ControlPosition.LEFT_TOP
-                }
-            };
-
-            map = new google.maps.Map(document.getElementById('googlemaps'), myOptions);
-
-           
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(locationFound, defaultLocation);
-            } else {
-                defaultLocation();
-            }
-        }
-
-        function locationFound(position) {
-            showMap(position.coords.latitude, position.coords.longitude, true);
-        }
-
-        function defaultLocation() {
-            showMap(38.8977, -77.0366, false);
-        }
-
-        function showMap(lat, lng, hideinfo) {
-
-            latLng = new google.maps.LatLng(lat, lng);
-
-            map.setCenter(latLng);
-
-            marker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                draggable: false,
-                animation: google.maps.Animation.DROP
-            });
-
-<!--COORDS BALOON-->
-
-            var balloon = '<div id="iw" style="max-width:260px;font-size:1.05em; color:#333"><b>Your current location:</b><br/> &nbsp; Latitude: ' + marker.getPosition().lat() + '<br/> &nbsp; Longitude: ' + marker.getPosition().lng();
-            
-            <!--VOTE BUTTON--> 
-           <!-- balloon += '<br><br><a style="margin-bottom:5px; padding: 0 10px" class="btn btn-sm" target="_blank" href="' + url + '" target="_blank"><i class="ti ti-location-pin"></i> Vote</a>';--!>
-            <!--TWITTER BUTTON-->
-            balloon += '<a target="_blank" style="margin-bottom:5px;padding: 0 10px" class="btn btn-sm" href="https://twitter.com/intent/tweet?related=MsC_DataScience&via=MsC_DataScience&url=' + '&text=%20Download%20%23WiFiHere%20App%20and%20find%20OPEN%20WiFi%20networks%20Nearby!"><i class="ti ti-twitter"></i>Tweet</a>';
-            
-    THEMAP = new google.maps.InfoWindow({ content:balloon   });
-		THEMAP.open(map,marker);
-
-        }
-        
-        
-        <!--ctrlq();-->
-        
     </script>   
 
 
