@@ -82,21 +82,21 @@
     
 	<div class="main-container">    
     <section class="image-bg bg-dark xoverlay pt120 pb120">
-			<div class="background-image-holder" style="opacity:.6;background-image:url(https://source.unsplash.com/category/technology/800x600">
+			<div class="background-image-holder" style="opacity:.6;background-image:url(./static/CB.jpg)">
 			</div>
             <!--Welcome Screen FREE WIFI NERBY-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h2 class="uppercase mb8">Free Nearby WiFi</h2>
+						<h2 class="uppercase mb8">Free Nearby WiFi (Prototype)</h2>
 						<p class="lead mb40">Find the nearest open hotspot and enjoy!</p>
 					</div>
                     
 					<div class="col-sm-12 text-center">
 
                     <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Scan to find Open WiFi!</a></p>
-                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Vote your location to get a new HotSpot</a></p>
-                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Show votes</a></p>
+                    <a class="btn btn-lg btn-white mb40" onclick="sendVote(); return false;">Vote your location to get a new HotSpot</a></p>
+                    <a class="btn btn-lg btn-white mb40" onclick="showVotes(); return false;">Show votes</a></p>
                     <p id="demo"></p>	                        
                     <!--<a href="#about" class="w3-bar-item w3-button">ABOUT</a> -->                    
                    <!-- <div class="w3-container" style="padding:128px 16px" id="about">-->
@@ -224,6 +224,49 @@
     map.fitBounds(geojson.getBounds());
     osmLayer.addTo(map);
     geojson.addTo(map);
+    map.setView(new L.LatLng(position.coords.latitude, position.coords.longitude),14);
+  });
+        }
+
+    function showVotes(position) {
+        map.eachLayer(function (layer) {
+    map.removeLayer(layer)
+});
+        var res = "/get_votes/";     
+        $.getJSON(res, function(data) {
+    var geojson = L.geoJson(data, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.popupContent);
+      }
+    });
+    map.fitBounds(geojson.getBounds());
+    osmLayer.addTo(map);
+    geojson.addTo(map);
+  });
+        }
+    function sendVote() {
+                if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(voteSent);
+                } else { 
+                mapToShow.innerHTML = "Geolocation is not supported by this browser.";
+                }
+        }
+
+function voteSent(position) {
+        map.eachLayer(function (layer) {
+    map.removeLayer(layer)
+});
+        var res = "/send_vote/?lat=" + position.coords.latitude + "&long=" + position.coords.longitude;     
+        $.getJSON(res, function(data) {
+    var geojson = L.geoJson(data, {
+      onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.popupContent);
+      }
+    });
+    map.fitBounds(geojson.getBounds());
+    osmLayer.addTo(map);
+    geojson.addTo(map);
+    geojson.bindPopup('Thanks for voting!').openPopup();
     map.setView(new L.LatLng(position.coords.latitude, position.coords.longitude),14);
   });
         }
