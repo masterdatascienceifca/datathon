@@ -929,15 +929,15 @@ footer.bg-dark li,
 .btn-white,
 .image-bg .btn,
 .image-bg .btn:visited {
-  color: #fff;
-  border-color: #fff;
+  color: #b9b8b8;
+  border-color: #b9b8b8;
 }
 
 .btn-white:hover,
 .image-bg .btn:hover,
 .image-bg .btn:visited:hover {
-  background: #fff;
-  color: #222;
+  background: #b9b8b8;
+  color: #eee;
 }
 
 .image-bg .btn.btn-filled,
@@ -1028,7 +1028,7 @@ nav ul {
 
 .module {
   display: inline-block;
-  padding: 0 32px;
+  padding: 10px;
 }
 
 .module-group {
@@ -1081,7 +1081,7 @@ nav .btn,
 }
 
 .logo {
-  max-height: 60%;
+  max-height: 80%;
 }
 
 .logo-light {
@@ -1545,7 +1545,7 @@ nav .cart-overview a {
     overflow: hidden;
   }
   .nav-bar .module {
-    padding: 0 16px;
+    padding: 10px;
   }
   .nav-bar .module-group {
     width: 100%;
@@ -6189,7 +6189,7 @@ footer.bg-dark a {
 }
 
 .pt120 {
-  padding-top: 120px;
+  padding-top: 190px;
 }
 
 .pt160 {
@@ -6265,7 +6265,7 @@ footer.bg-dark a {
 }
 
 .pb120 {
-  padding-bottom: 120px;
+  padding-bottom: 190px;
 }
 
 .pb160 {

@@ -1,208 +1,200 @@
-<html lang="en">
-
-<head>
+	
+	<html lang="en">
+	<head>
 	<meta charset="utf-8">
 	<title>Find Open nearby WiFi!</title>
-	<meta name="description" content="WiFiHere app helps you find free open WiFi hotspots near you, allowing you to stay connected when you need it the most."
-	/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
-
-  </style>
-  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-  <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="canonical" href="ttps://ctrlq.org/maps/where/"> <!-- CHECK-->
-	<link href="./static/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="/static/css/theme-nearblack.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="https://fonts.googleapis.com/css?family=Raleway:100,400,300,500,600,700%7COpen+Sans:400,500,600" rel="stylesheet"
-		type="text/css">
-        
-        
-	<style>
-		body {
-      padding: 0;
-      margin: 0;
-    }
-
-    html, body, #osm-map {
-      height: 100%;
-    }
-
-		.tools a {
-			color: white;
-		}
-		
-		.googlecontainer {
-			height: 100vh;
-			max-height: 640px;
-			xwidth: 95%;
-			margin: auto;
-		}
-		
-		#pac-input {
-			width: 300px;
-			height: 40px;
-			padding-left: 10px;
-		}
-		
-		#googlemaps {
-			height: 100%;
-		}
-		
-		@media all and (max-width: 767px) {
-			br {
-				display: block;
-			}
-		}
-	</style>
-	 
+	<meta name="description" content="WiFiHere app helps you find free open WiFi hotspots near you, allowing you to stay connected when you need it the most.">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
 	
-</head>
-
-<body>
-
+	
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="canonical" href="ttps://193.146.75.246"> <!-- CHECK-->
+	<link href="./static/css/themify-icons.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/static/css/theme-nearblack.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="https://fonts.googleapis.com/css?family=Raleway:100,400,300,500,600,700%7COpen+Sans:400,500,600" rel="stylesheet"
+	type="text/css">
+	
+	
+	<style>
+	body {
+	padding: 0;
+	margin: 0;
+	}
+	
+	html, body, #osm-map {
+	height: 100%;
+	}
+	
+	.tools a {
+	color: white;
+	}
+	
+	.googlecontainer {
+	height: 100vh;
+	max-height: 640px;
+	xwidth: 95%;
+	margin: auto;
+	}
+	
+	#pac-input {
+	width: 300px;
+	height: 40px;
+	padding-left: 10px;
+	}
+	
+	#googlemaps {
+	height: 100%;
+	}
+	
+	@media all and (max-width: 767px) {
+	br {
+	display: block;
+	}
+	}
+	</style>
+	
+	<style type="text/css">:root 
+	style><style type="text/css" id="igtranslator-color"></style><script type="text/javascript" charset="UTF-8" src="./Find Open nearby WiFi!_files/common.js.download"></script><script type="text/javascript" charset="UTF-8" src="./Find Open nearby WiFi!_files/util.js.download"></script><script type="text/javascript" charset="UTF-8" src="./Find Open nearby WiFi!_files/stats.js.download">
+	</script>
+	</head>
+	
+	
+	<body>
+	<!---------------Top White Bar----------> 
 	<div class="nav-container">
-		<nav>
-			<div class="nav-bar">
-				<div class="module left">
-					<a href="https://masterdatascience.ifca.es/index_en.html">
-						<img class="logo logo-dark" alt="WiFiHere, IFCA, UC, UIMP, EC" src="https://masterdatascience.ifca.es/images/logo.png">
-					</a>
-				</div>
-					</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</nav>
+	<nav>
+	<div class="nav-bar">
+	<div class="module left">
+	<a href="https://masterdatascience.ifca.es/index_en.html">
+	<img class="logo logo-dark" alt="WiFiHere, IFCA, UC, UIMP, EC" src="https://i.imgur.com/YphXM9i.jpg">
+	</a>
+	</div> 
 	</div>
-    
-    
-	<div class="main-container">    
-    <section class="image-bg bg-dark xoverlay pt120 pb120">
-			<div class="background-image-holder" style="opacity:.6;background-image:url(./static/CB.jpg)">
-			</div>
-            <!--Welcome Screen FREE WIFI NERBY-->
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 text-center">
-						<h2 class="uppercase mb8">Free Nearby WiFi (Prototype)</h2>
-						<p class="lead mb40">Find the nearest open hotspot and enjoy!</p>
-					</div>
-                    
-					<div class="col-sm-12 text-center">
-
-                    <a class="btn btn-lg btn-white mb40" onclick="getLocation(); return false;">Scan to find Open WiFi!</a></p>
-                    <a class="btn btn-lg btn-white mb40" onclick="sendVote(); return false;">Vote your location to get a new HotSpot</a></p>
-                    <a class="btn btn-lg btn-white mb40" onclick="showVotes(); return false;">Show votes</a></p>
-                    <p id="demo"></p>	                        
-                    <!--<a href="#about" class="w3-bar-item w3-button">ABOUT</a> -->                    
-                   <!-- <div class="w3-container" style="padding:128px 16px" id="about">-->
-                   
-                   
-                	
-   <!--MAP Section-->      
-       
-            
-		</section>
-		<section class="bg-secondary pb0 pt0" id="maps">
-			<div class="row mb-xs-24 googlecontainer">
-				<div id="osm-map">
-  <script type='text/javascript'>
-  </script>
-				</div>
-		
-		</section>
-     
-  <!--Request Free WiFi Here Section-->      
-        
-		<section class="bg-secondary">
-			<div class="container">
-				<div class="row mb32 mb-xs-24">
-					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
-						<h2>Request Free WifiHere!</h2>
-					</div>
-				</div>                
-				<div class="row mb32 mb-xs-24">
-					<div class="col-sm-10 col-sm-offset-1">
-						<p class="lead">You didn't find any Open Wifi hotspot nearby?  <a>Vote for this place to get free Wifi connectivity</a> (available only for public spaces). Help our governments to better plan the next upgrades to the network and become part of the FreeWiFi4EU movement...</p>
-						<p class="lead">This information is used to build an Open Database that the local authorities can access to determine the optimal places to install new open Wifi hotspots. This is part of the <a href="http://www.europarl.europa.eu/news/en/press-room/20170908IPR83454/wifi4eu-new-eu-scheme-for-free-internet-access">WiFi4EU Initiative</a>, in accordancet to the <a> Digital Single Market </a>Strategy of the European Commission. </p>
-					</div>
-				</div>
-			</div>
-		</section>
-
-
-<!--Development Team Section-->
-
-		<section class="bg-dark tools">
-			<div class="container">
-				<div class="row mb64 mb-xs-24">
-					<div class="col-md-10 col-md-offset-1 col-sm-12 text-center" id="team">
-						<h3>Development Team</h3>				
-				<div class="row">
-					<div class="col-md-5 col-md-offset-1 col-sm-6 mb40 mb-xs-24">
-						<i class="icon inline-block mb16 fade-3-4 ti ti-map"></i>
-                        
-						<h4><a href="https://masterdatascience.ifca.es/index_en.html">Master in Data Science</a></h4>
-						<p>UIMP / Universidad de Cantabria / CSIC - Spain </p>  
-                             The students and professors joined efforts to offer a tool to promote democratic change through citizen participation in decisions about local digital strategies. The App makes use of the <a href="https://ec.europa.eu/jrc/en/scientific-tool/netbravo-measuring-internet-signal-map-connection-quality-across-eu"> netBravo</a> open database of the JCR (Joint Research Centre) to determine the closest open WiFi networks. </p>
-					
-                    
-                    
-                    
-<!-- PAGE BOTTOM-->
-					
-		</section>
-           <!--THE THREE LINKS ON THE BOTTOM-->
-           
-           <section class="page-title page-title-4 bg-secondary" >
-			<div class="container" >
-				<div class="row mb32 mb-xs-24">
-					<div class="col-md-6">
-						<h3 class="uppercase mb0">WiFiHere</h3 >
-					</div>
-                    
-					<div class="col-md-6 text-right">
-                    <!--THE THREE LINKS ON THE BOTTOM-->
-						<ol class="breadcrumb breadcrumb-2">
-							<li>
-								<a href="https://masterdatascience.ifca.es/index_en.html" target="">The Developer</a>
-							</li>
-							<li>
-								<a href="https://twitter.com/MsC_DataScience" target="_blank">Twitter</a>
-							</li>
-							<li>
-                            <a href="mailto:info-masterdatascience@listas.csic.es?Subject=WiFiHere - Info">Email Us</a>
-								
-							</li>
-						</ol>
-					</div>
-		</section>
+	</nav>
 	</div>
-
-
-
+	
+	
+	
+	<div class="main-container"> 
+	<!---------------Welcome WifiHere!----------> 
+	<section class="image-bg bg-dark xoverlay pt120 pb120">
+	<div class="background-image-holder" style="opacity:.4;background-image:url(./static/CB.jpg)">
+	</div>
+	<div class="container">
+	<div class="row">
+	<div class="col-sm-12 text-center">
+	<h1 class=" mb8">WiFiHere!</h1> 
+	<h4 class=" mb8">PROTOTYPE</h4>
+	<p class="lead mb40">Find the nearest open hotspot and enjoy!</p>
+	</div> 
+	<div class="col-sm-12 text-center">
+	<a class="btn btn-lg btn-white mb40" href="#" onclick="getLocation(); return false;">Scan to find Open WiFi</a><p></p>
+	<!--<a class="btn btn-lg btn-white mb40" href="#" onclick="sendVote(); return false;">Vote for Free WiFiHere!</a><p></p>-->
+	<!--<a class="btn btn-lg btn-white mb40" href="#" onclick="showVotes(); return false;"> Show Voted Locations </a><p></p>-->
+	</div>
+	</div>
+	</div> 
+	</section> 
+	
+	
+	<!--------------------MAP Section-----------------> 
+	<section class="bg-secondary pb0 pt0" id="maps">
+	<div class="row mb-xs-24 googlecontainer">
+	<div id="osm-map">
+	<script type="text/javascript">
+	</script>
+	</div>
+	</div>
+	</section>
+	
+	<!----------Request Free WiFi Here Section-----------> 
+	
+	<section class="bg-secondary">
+	<div class="container">
+	<div class="row mb32 mb-xs-24">
+	<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+	<h2>Request Free WifiHere!</h2>
+	</div>
+	</div> 
+	<div class="row mb32 mb-xs-24">
+	<div class="col-sm-10 col-sm-offset-1 text-center">
+	<p class="lead">You didn't find any free Wifi hotspot nearby? Rise your hand, vote for this place to get open Wifi and help our local government to better plan the next upgrades to the network (available only for public spaces). </p>
+	
+	<a class="btn btn-lg btn-white mb40" onclick="sendVote(); return false;">Vote for Free WiFiHere!</a><p></p>
+	
+	<p class="lead">With this information we will build an Open Database that the local authorities can access to determine the most useful places to install new open hotspots and make the best use out of the <a href="http://www.europarl.europa.eu/news/en/press-room/20170908IPR83454/wifi4eu-new-eu-scheme-for-free-internet-access">WiFi4EU Initiative</a>. Anyone interested can acccess this information to reuse it and generate different services useful for the community, boosting the economy and the transition toward a<a href="https://ec.europa.eu/digital-single-market/en/policies/shaping-digital-single-market"> Digital Single Market </a> and the <a href="https://ec.europa.eu/digital-single-market/en/policies/improving-connectivity-and-access">European Gigabit Society.</a> </p>
+	
+	<a class="btn btn-lg btn-white mb40" href="#" onclick="showVotes(); return false;"> Show Voted Locations </a><p></p>
+	</div>
+	</div>
+	</div>
+	</section>
+	
+	
+	<!--Development Team Section-->
+	
+	<section class="bg-dark tools">
+	<div class="container">
+	<div class="row mb64 mb-xs-24">
+	<div class="col-md-10 col-md-offset-1 col-sm-12 text-center" id="team">
+	<h3>Development Team</h3> <div class="row mb64 mb-xs-24">
+	<div class="col-md-10 col-md-offset-1 col-sm-12 text-center">
+	
+	
+	
+	<h4> UIMP / UNICAN / CSIC - Spain </h4> 
+	
+	Students and professors of the <a href="https://masterdatascience.ifca.es/index_en.html"> Master in Data Science</a> joined efforts to offer a tool to promote democratic change by involving citizens in decisions about local digital strategies. The App makes use of the <a href="https://ec.europa.eu/jrc/en/scientific-tool/netbravo-measuring-internet-signal-map-connection-quality-across-eu"> netBravo</a> open database of the <a href="https://ec.europa.eu/info/departments/joint-research-centre_en#latest">JRC</a> (Joint Research Centre) to determine the closest open WiFi networks. </p>
+	
+	
+	
+	
+	<!-- PAGE BOTTOM-->
+	
+	</section>
+	<!--SECTION TITLE-->
+	
+	<section class="page-title page-title-4 bg-secondary" >
+	<div class="container" >
+	<div class="row mb32 mb-xs-24">
+	<div class="col-md-6">
+	<h3>WiFiHere!</h3 >
+	</div>
+	
+	<div class="col-md-6 text-right">
+	<!--THE THREE LINKS ON THE BOTTOM-->
+	<ol class="breadcrumb breadcrumb-2">
+	<li>
+	<a href="https://masterdatascience.ifca.es/index_en.html" target="">The Developers</a>
+	</li>
+	<li>
+	<a href="https://twitter.com/MsC_DataScience" target="_blank">Twitter</a>
+	</li>
+	<li>
+	<a href="mailto:info-masterdatascience@listas.csic.es?Subject=WiFiHere - Info">Email Us</a>
+	
+	</li>
+	</ol>
+	</div>
+	</section>
+	</div>
+	
+	
+	
 	<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyABQ8h9v6a5SaqoEo7VbzTZaWtvo5J0Hi8"></script>
 	<script>
         var mapToShow = document.getElementById("osm-map");
-	var map = L.map('osm-map'); 
+	var map = L.map('osm-map',{dragging: false, tap: true}); 
         //https://a.tile.openstreetmap.org/{z}/{x}/{y}.png
-        var osmLayer = L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-});
-
-  $.getJSON("/data/", function(data) {
-    var geojson = L.geoJson(data, {
-      onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.popupContent);
-      }
-    });
-    map.fitBounds(geojson.getBounds());
-    osmLayer.addTo(map);
-    geojson.addTo(map);
-  });
+        var osmLayer = L.tileLayer('https://b.tile.openstreetmap.org/{z}/{x}/{y}.png', {});
+        osmLayer.addTo(map);
+        map.scrollWheelZoom.disable();
+        map.setView(new L.LatLng(51.3, 0.7),4);
+	map.addLayer(osm);
 	function getLocation() {
     		if (navigator.geolocation) {
         		navigator.geolocation.getCurrentPosition(showPosition);
@@ -224,7 +216,9 @@
     map.fitBounds(geojson.getBounds());
     osmLayer.addTo(map);
     geojson.addTo(map);
+    geojson.bindPopup('My Location').openPopup();
     map.setView(new L.LatLng(position.coords.latitude, position.coords.longitude),14);
+    map.scrollWheelZoom.disable();
   });
         }
 
@@ -242,6 +236,7 @@
     map.fitBounds(geojson.getBounds());
     osmLayer.addTo(map);
     geojson.addTo(map);
+    map.scrollWheelZoom.disable();
   });
         }
     function sendVote() {
@@ -268,11 +263,18 @@ function voteSent(position) {
     geojson.addTo(map);
     geojson.bindPopup('Thanks for voting!').openPopup();
     map.setView(new L.LatLng(position.coords.latitude, position.coords.longitude),14);
+    map.scrollWheelZoom.disable();
   });
         }
 
     </script>   
 
 
+	
+	
+	
+	<div class="igtranslator-main-div" style="display: none; width: 0px; height: 0px;"><iframe src="./Find Open nearby WiFi!_files/saved_resource.html" class="igtranslator-iframe" scrolling="no" frameborder="0"></iframe></div><div class="igtranslator-activator-icon bounceIn" style="background-image: url(&quot;chrome-extension://jgnebchahhepphmokjeohhoebakpfggp/data/icons/home.png&quot;); display: none;" title="Click to Show Translation">
+</div>
 </body>
 </html>
+

@@ -68,13 +68,13 @@ def get_data2():
 def get_nearest_coordinates():
     latitude = float(flask.request.args.get('lat'))
     longitude = float(flask.request.args.get('long'))
-    radius = 10
+    radius = 1
     m = 0.00463 / 500                   #1m in coordinates
     r = (radius * m) ** 2                               #radius to coordinates for the formula
-    conn = psycopg2.connect("dbname='gisdata' user='gisuser' host='193.146.75.168' password='Y8nmEHTYSZHCgc8d'")
+    conn = psycopg2.connect("dbname='' user='' host='' password=''")
     cur = conn.cursor()
     #query = """SELECT * from datathon_filtered WHERE (power((lon -""" + str(abs(longitude)) + """),2)+ power((lat - """ + str(abs(latitude)) + """),2)) <= power(""" + str(r) + """,2) AND securetype LIKE 'Opened'"""
-    query = """SELECT * from datathon_filtered WHERE((ACOS(SIN(""" + str(latitude) + """ * PI() / 180) * SIN(lat * PI() / 180) + COS(""" + str(latitude) + """ * PI() / 180) * COS(lat * PI() / 180) * COS((""" + str(longitude) + """ - lon) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) <""" + str(radius) +""" and securetype LIKE 'Opened'"""
+    query = """SELECT * from datathon_full WHERE((ACOS(SIN(""" + str(latitude) + """ * PI() / 180) * SIN(lat * PI() / 180) + COS(""" + str(latitude) + """ * PI() / 180) * COS(lat * PI() / 180) * COS((""" + str(longitude) + """ - lon) * PI() / 180)) * 180 / PI()) * 60 * 1.1515) <""" + str(radius) +""" LIMIT 500"""
      
     print(query)
     cur.execute(query)
@@ -105,9 +105,9 @@ def get_votes_coordinates():
     radius = 10
     m = 0.00463 / 500                   #1m in coordinates
     r = (radius * m) ** 2                               #radius to coordinates for the formula
-    conn = psycopg2.connect("dbname='gisdata' user='gisuser' host='193.146.75.168' password='Y8nmEHTYSZHCgc8d'")
+    conn = psycopg2.connect("dbname='' user='' host='' password=''")
     cur = conn.cursor()
-    query = """SELECT * from votes"""
+    query = """SELECT * from votes LIMIT 500"""
     print(query)
     cur.execute(query)
     rows = cur.fetchall()
@@ -124,7 +124,7 @@ def get_votes_coordinates():
 def send_vote():
     latitude = float(flask.request.args.get('lat'))
     longitude = float(flask.request.args.get('long'))
-    conn = psycopg2.connect("dbname='gisdata' user='gisuser' host='193.146.75.168' password='Y8nmEHTYSZHCgc8d'")
+    conn = psycopg2.connect("dbname='' user='' host='' password=''")
     cur = conn.cursor()
     query = """ INSERT INTO votes (lon, lat) VALUES (""" + str(longitude) + """, """ + str(latitude) + """);"""
     print(query)
@@ -139,5 +139,5 @@ def send_vote():
 
 if __name__ == "__main__":
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-    context.load_cert_chain('./datathon.crt', './datathon.key')
+    context.load_cert_chain('', '')
     app.run(host='0.0.0.0',port=443,debug=True,ssl_context=context)
